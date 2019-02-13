@@ -31,11 +31,8 @@ def subscribe_intent_callback(hermes, intentMessage):
 def action_wrapper(hermes, intentMessage, conf):
 
 	
-	
-""" ============================== CODE BEGIN =================================
-""" 
+# ============================== CODE BEGIN ================================= 
     
-	
 	
     def verbalise_hour(i):
 	if i == 0:
@@ -90,8 +87,9 @@ def intent_received(hermes, intent_message):
 		hermes.publish_end_session(intent_message.session_id, "De rien!")
     
       
-""" ============================== CODE END =================================
-"""
+#============================== CODE END =================================
+
+
 
 
 if __name__ == "__main__":
