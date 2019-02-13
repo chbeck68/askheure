@@ -29,18 +29,63 @@ def subscribe_intent_callback(hermes, intentMessage):
 
 
 def action_wrapper(hermes, intentMessage, conf):
-    """ Write the body of the function that will be executed once the intent is recognized. 
-    In your scope, you have the following objects : 
-    - intentMessage : an object that represents the recognized intent
-    - hermes : an object with methods to communicate with the MQTT bus following the hermes protocol. 
-    - conf : a dictionary that holds the skills parameters you defined. 
-      To access global parameters use conf['global']['parameterName']. For end-user parameters use conf['secret']['parameterName'] 
-     
-    Refer to the documentation for further details. 
-    """ 
-    dd
+        
+""" ============================== CODE BEGIN ================================= """        
     
+    def verbalise_hour(i):
+	if i == 0:
+		return "minuit"
+	elif i == 1:
+		return "une heure"
+	elif i == 12:
+		return "midi"
+	elif i == 21:
+		return "vingt et une heures"
+	else:
+		return "{0} heures".format(str(i)) 
 
+def verbalise_minute(i):
+	if i == 0:
+		return ""
+	elif i == 1:
+		return "une"
+	elif i == 21:
+		return "vingt et une"
+	elif i == 31:
+		return "trente et une"
+	elif i == 41:
+		return "quarante et une"
+	elif i == 51:
+		return "cinquante et une"
+	else:
+		return "{0}".format(str(i)) 
+
+
+def intent_received(hermes, intent_message):
+
+	print()
+	print(intent_message.intent.intent_name)
+	print ()
+
+	if intent_message.intent.intent_name == 'Joseph:askTime':
+
+		sentence = 'Il est '
+		print(intent_message.intent.intent_name)
+
+		now = datetime.now(timezone('Europe/Paris'))
+
+		sentence += verbalise_hour(now.hour) + " " + verbalise_minute(now.minute)
+		print(sentence)
+
+		# hermes.publish_continue_session(intent_message.session_id, sentence, ["Joseph:greetings"])
+		hermes.publish_end_session(intent_message.session_id, sentence)
+
+	elif intent_message.intent.intent_name == 'Joseph:greetings':
+
+		hermes.publish_end_session(intent_message.session_id, "De rien!")
+    
+      
+""" ============================== CODE END ================================= """        
 
 if __name__ == "__main__":
     with Hermes("localhost:1883") as h:
