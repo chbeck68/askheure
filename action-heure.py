@@ -45,7 +45,7 @@ def intent_received(hermes, intent_message):
 	print(intent_message.intent.intent_name)
 	print ()
 
-	if intent_message.intent.intent_name == 'Joseph:askTime':
+	if intent_message.intent.intent_name == 'chbeck68:askTime':
 
 		sentence = 'Il est '
 		print(intent_message.intent.intent_name)
@@ -55,10 +55,10 @@ def intent_received(hermes, intent_message):
 		sentence += verbalise_hour(now.hour) + " " + verbalise_minute(now.minute)
 		print(sentence)
 
-		# hermes.publish_continue_session(intent_message.session_id, sentence, ["Joseph:greetings"])
+		# hermes.publish_continue_session(intent_message.session_id, sentence, ["chbeck68:greetings"])
 		hermes.publish_end_session(intent_message.session_id, sentence)
 
-	elif intent_message.intent.intent_name == 'Joseph:greetings':
+	elif intent_message.intent.intent_name == 'chbeck68:greetings':
 
 		hermes.publish_end_session(intent_message.session_id, "De rien!")
 
